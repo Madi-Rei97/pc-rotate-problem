@@ -19,8 +19,30 @@ class Node:
             raise Exception("Linked list has a cycle or is too large")
 
 def rotate(head, k):
-    # Your implementation here!
-    pass
+    if k == 0 or head.next is None:
+        return head
+    
+    length = 1
+    current = head
+    while current.next:
+        current = current.next
+        length += 1
+
+    k = k % length
+    if k == 0:
+        return head
+    
+    new_tail = head
+    for _ in range(length - k - 1):
+        new_tail = new_tail.next
+
+    new_head = new_tail.next
+    new_tail.next = None
+    current.next = head
+
+    return new_head
+
+    
 
 
 # Input list: a->b->c->d->e
